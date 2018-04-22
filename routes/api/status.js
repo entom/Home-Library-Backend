@@ -4,21 +4,21 @@ var router = express.Router();
 /**
  * @swagger
  * definition:
- *   Index:
+ *   ApiStatus:
  *     properties:
  *       status:
  *         type: string
  * @swagger
- * /api/index:
+ * /api/status:
  *   get:
  *     description: Check status of API
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: JSON with status
+ *         description: JSON with status. It should return "OK" as value for status field
  *         schema:
- *           $ref: '#/definitions/Index'
+ *           $ref: '#/definitions/ApiStatus'
  */
 router.get('/', function (req, res, next) {
     res.json({status: 'ok'});
