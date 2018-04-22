@@ -10,6 +10,28 @@ var apiIndexRouter = require('./routes/api/index');
 
 var app = express();
 
+// API documentation
+var swaggerJSDoc = require('swagger-jsdoc');
+var swaggerDefinition = {
+    info: {
+        title: 'HomeLibrary Swagger API',
+        version: '0.01',
+        description: 'Documentation for REST API with Swagger',
+    },
+    host: 'localhost:3000',
+    basePath: '/',
+};
+var options = {
+    swaggerDefinition: swaggerDefinition,
+    apis: ['./routes/api/*.js'],
+};
+var swaggerSpec = swaggerJSDoc(options);
+
+app.get('/swagger.json', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
