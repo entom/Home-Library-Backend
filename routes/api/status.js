@@ -11,6 +11,8 @@ var router = express.Router();
  * @swagger
  * /api/status:
  *   get:
+ *     tags:
+ *       - ApiStatus
  *     description: Check status of API
  *     produces:
  *       - application/json
