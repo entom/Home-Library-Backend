@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express')
+let router = express.Router()
 
 /**
  * @swagger
@@ -22,8 +22,8 @@ var router = express.Router();
  *         schema:
  *           $ref: '#/definitions/ApiStatus'
  */
-router.get('/', function (req, res, next) {
-    res.json({status: 'ok'});
-});
+router.get('/', (req, res) => {
+  res.json({status: 'ok'})
+})
 
-module.exports = router;
+module.exports = router

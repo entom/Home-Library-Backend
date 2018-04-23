@@ -1,18 +1,18 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express')
+let router = express.Router()
 
 /**
  *
  */
-router.get('/', (req, res, next) => {
-    res.json({});
-});
+router.get('/', (req, res) => {
+  res.json({})
+})
 
 /**
  *
  */
-router.post('/', (req, res, next) => {
-    res.json({});
-});
+router.post('/', (req, res) => {
+  res.json({})
+})
 
-module.exports = router;
+module.exports = router
