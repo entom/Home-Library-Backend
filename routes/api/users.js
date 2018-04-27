@@ -97,4 +97,38 @@ router.get('/:id', (req, res) => {
   })
 })
 
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     tags:
+ *       - Users
+ *     description: Create user
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: User ID number
+ *         required: true
+ *         type: string
+ *       - name: user
+ *         description: JSON with user data
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User which was edited
+ *         schema:
+ *           $ref: '#/definitions/User'
+ */
+router.put('/:id', (req, res) => {
+  User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
+    if (err) return res.status(500).send('There was a problem updating the user.')
+    res.status(200).send(user)
+  })
+})
+
 module.exports = router
