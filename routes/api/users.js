@@ -36,7 +36,26 @@ router.get('/', (req, res) => {
 })
 
 /**
- *
+ * @swagger
+ * /api/users/:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Create user
+ *     parameters:
+ *       - name: user
+ *         description: JSON with user data
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: User which was created
+ *         schema:
+ *           $ref: '#/definitions/User'
  */
 router.post('/', (req, res) => {
   User.create({
