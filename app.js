@@ -10,6 +10,7 @@ let apiStatusRouter = require('./routes/api/status')
 let apiUsersRouter = require('./routes/api/users')
 
 let app = express()
+let db = require('./db')
 
 // API documentation
 let swaggerJSDoc = require('swagger-jsdoc')
@@ -25,7 +26,7 @@ let swaggerDefinition = {
 
 let options = {
   swaggerDefinition: swaggerDefinition,
-  apis: ['./routes/api/*.js']
+  apis: ['./routes/api/*.js', './models/*.js']
 }
 
 let swaggerSpec = swaggerJSDoc(options)

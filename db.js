@@ -1,3 +1,3 @@
 let mongoose = require('mongoose')
 
-mongoose.connect('mongodb://homelibrary').then(() => {})
+mongoose.connect('mongodb://localhost:27017/homelibrary').then(() => {})
