@@ -18,7 +18,7 @@ let swaggerJSDoc = require('swagger-jsdoc')
 let swaggerDefinition = {
   info: {
     title: 'HomeLibrary Swagger API',
-    version: '0.01',
+    version: '0.0.2',
     description: 'Documentation for REST API with Swagger'
   },
   host: 'localhost:3000',
