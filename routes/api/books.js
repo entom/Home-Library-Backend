@@ -58,9 +58,7 @@ router.get('/', (req, res) => {
  *           $ref: '#/definitions/Book'
  */
 router.post('/', (req, res) => {
-  Book.create({
-    title: req.body.title
-  }, (err, user) => {
+  Book.create(req.body, (err, user) => {
     if (err) return res.status(400).send('There was a problem adding the book to the database.')
     res.status(200).send(user)
   })
