@@ -1,13 +1,17 @@
 let express = require('express')
 let router = express.Router()
+let bodyParser = require('body-parser')
+
+router.use(bodyParser.urlencoded({extended: true}))
+router.use(bodyParser.json())
 
 /**
- * @swagger
- * definition:
- *   ApiStatus:
- *     properties:
- *       status:
- *         type: string
+ *
+ * @type {module:mongoose.Model<module:mongoose.Document>|*}
+ */
+let ApiStatus = require('./../../models/ApiStatus')
+
+/**
  * @swagger
  * /api/status:
  *   get:
@@ -23,7 +27,17 @@ let router = express.Router()
  *           $ref: '#/definitions/ApiStatus'
  */
 router.get('/', (req, res) => {
-  res.json({status: 'ok'})
+  ApiStatus.findOne({}, (err, status) => {
+    if (err) res.status(400).send('There was a problem finding API status')
+    if (!status) {
+      ApiStatus.create({status: 'ok'}, (err, status) => {
+        if (err) res.status(400).send('There was a problem finding API status')
+        res.status(200).send(status)
+      })
+    } else {
+      res.status(200).send(status)
+    }
+  })
 })
 
 module.exports = router

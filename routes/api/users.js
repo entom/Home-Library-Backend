@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
   }, (err, user) => {
     if (err) return res.status(400).send('There was a problem adding the information to the database.')
     res.status(200).send(user)
-  }).then(() => {})
+  })
 })
 
 /**
