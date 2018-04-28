@@ -7,6 +7,14 @@ let mongose = require('mongoose')
  *     properties:
  *       title:
  *         type: string
+ *       pages:
+ *         type: number
+ *       year:
+ *         type: number
+ *       user:
+ *         type: string
+ *       ebook:
+ *         type: boolean
  *
  * @type {module:mongoose.Schema}
  */
