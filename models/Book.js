@@ -21,11 +21,17 @@ let mongose = require('mongoose')
  * @type {module:mongoose.Schema}
  */
 let BookSchema = new mongose.Schema({
-  title: String,
+  title: {
+    type: String,
+    required: 'Please provide title'
+  },
   pages: Number,
   year: Number,
   user: String,
-  ebook: Boolean,
+  ebook: {
+    type: Boolean,
+    required: 'Please select if book is ebook'
+  },
   public: Boolean
 })
 mongose.model('Book', BookSchema)
