@@ -8,6 +8,7 @@ let indexRouter = require('./routes/index')
 let usersRouter = require('./routes/users')
 let apiStatusRouter = require('./routes/api/status')
 let apiUsersRouter = require('./routes/api/users')
+let apiBooksRouter = require('./routes/api/books')
 
 let app = express()
 let db = require('./db')
@@ -17,7 +18,7 @@ let swaggerJSDoc = require('swagger-jsdoc')
 let swaggerDefinition = {
   info: {
     title: 'HomeLibrary Swagger API',
-    version: '0.01',
+    version: '0.0.2',
     description: 'Documentation for REST API with Swagger'
   },
   host: 'localhost:3000',
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/api/status', apiStatusRouter)
 app.use('/api/users', apiUsersRouter)
+app.use('/api/books', apiBooksRouter)
 app.use('/users', usersRouter)
 
 // catch 404 and forward to error handler
