@@ -1,6 +1,7 @@
 let express = require('express')
 let router = express.Router()
 let bodyParser = require('body-parser')
+let apiHelper = require('./../../helpers/ApiHelper')
 
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json())
@@ -56,10 +57,14 @@ router.get('/', (req, res) => {
  *         description: Book which was created
  *         schema:
  *           $ref: '#/definitions/Book'
+ *       400:
+ *         description: Book validation errors
+ *         schema:
+ *           $ref: '#/definitions/ApiValidation'
  */
 router.post('/', (req, res) => {
   Book.create(req.body, (err, user) => {
-    if (err) return res.status(400).send('There was a problem adding the book to the database.')
+    if (err) return res.status(400).send({message: 'There was a problem adding the book to the database.', errors: apiHelper.validationErrors(err)})
     res.status(200).send(user)
   })
 })
