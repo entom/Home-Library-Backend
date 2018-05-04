@@ -18,6 +18,7 @@ let ApiStatus = require('./../../models/ApiStatus')
  *     tags:
  *       - ApiStatus
  *     description: Check status of API
+ *     summary: Get status of API
  *     produces:
  *       - application/json
  *     responses:

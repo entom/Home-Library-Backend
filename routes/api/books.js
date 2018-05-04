@@ -19,6 +19,7 @@ let Book = require('./../../models/Book')
  *     tags:
  *       - Books
  *     description: Get list of books
+ *     summary: List of books
  *     produces:
  *       - application/json
  *     responses:
@@ -42,7 +43,8 @@ router.get('/', (req, res) => {
  *   post:
  *     tags:
  *       - Books
- *     description: Create book
+ *     description: Create a book
+ *     summary: Create a book
  *     parameters:
  *       - name: user
  *         description: JSON with book data
@@ -76,6 +78,7 @@ router.post('/', (req, res) => {
  *     tags:
  *       - Books
  *     description: Get book by id
+ *     summary: Get book by id
  *     parameters:
  *       - name: id
  *         in: path
@@ -104,7 +107,8 @@ router.get('/:id', (req, res) => {
  *   put:
  *     tags:
  *       - Books
- *     description: Create book
+ *     description: Update a book
+ *     summary: Update a book
  *     parameters:
  *       - name: id
  *         in: path
@@ -138,7 +142,8 @@ router.put('/:id', (req, res) => {
  *   delete:
  *     tags:
  *       - Books
- *     description: Delete book
+ *     description: Delete a book
+ *     summary: Delete a book
  *     parameters:
  *       - name: id
  *         in: path

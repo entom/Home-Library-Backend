@@ -18,6 +18,7 @@ let User = require('./../../models/User')
  *     tags:
  *       - Users
  *     description: Get list of users
+ *     summary: Get list of users
  *     produces:
  *       - application/json
  *     responses:
@@ -42,6 +43,7 @@ router.get('/', (req, res) => {
  *     tags:
  *       - Users
  *     description: Create user
+ *     summary: Create user
  *     parameters:
  *       - name: user
  *         description: JSON with user data
@@ -75,6 +77,7 @@ router.post('/', (req, res) => {
  *     tags:
  *       - Users
  *     description: Get user by id
+ *     summary: Get user by id
  *     parameters:
  *       - name: id
  *         in: path
@@ -104,6 +107,7 @@ router.get('/:id', (req, res) => {
  *     tags:
  *       - Users
  *     description: Create user
+ *     summary: Create user
  *     parameters:
  *       - name: id
  *         in: path
@@ -138,6 +142,7 @@ router.put('/:id', (req, res) => {
  *     tags:
  *       - Users
  *     description: Delete user
+ *     summary: Delete user
  *     parameters:
  *       - name: id
  *         in: path
