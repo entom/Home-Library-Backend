@@ -11,13 +11,16 @@ let mongose = require('mongoose')
  *         type: string
  *       password:
  *         type: string
+ *       role:
+ *         type: string
  *
  * @type {module:mongoose.Schema}
  */
 let UserSchema = new mongose.Schema({
   name: String,
   email: String,
-  password: String
+  password: String,
+  role: String
 })
 mongose.model('User', UserSchema)
 

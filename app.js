@@ -3,14 +3,17 @@ let express = require('express')
 let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
+let jwt = require('jsonwebtoken')
+
+let app = express()
 
 let indexRouter = require('./routes/index')
 let usersRouter = require('./routes/users')
 let apiStatusRouter = require('./routes/api/status')
 let apiUsersRouter = require('./routes/api/users')
 let apiBooksRouter = require('./routes/api/books')
+let apiAuthenticateRouter = require('./routes/api/authenticate')
 
-let app = express()
 let db = require('./db')
 
 // API documentation
@@ -32,6 +35,8 @@ let options = {
 
 let swaggerSpec = swaggerJSDoc(options)
 
+app.set('superSecret', 'HomeLibrarySecret')
+
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   res.send(swaggerSpec)
@@ -48,10 +53,12 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
+app.use('/users', usersRouter)
+
 app.use('/api/status', apiStatusRouter)
+app.use('/api/authenticate', apiAuthenticateRouter)
 app.use('/api/users', apiUsersRouter)
 app.use('/api/books', apiBooksRouter)
-app.use('/users', usersRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

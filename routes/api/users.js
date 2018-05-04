@@ -5,6 +5,8 @@ let bodyParser = require('body-parser')
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json())
 
+let VerifyToken = require('./../../helpers/VerifyToken')
+
 /**
  *
  * @type {module:mongoose.Model<module:mongoose.Document>|*}
@@ -18,6 +20,7 @@ let User = require('./../../models/User')
  *     tags:
  *       - Users
  *     description: Get list of users
+ *     summary: Get list of users
  *     produces:
  *       - application/json
  *     responses:
@@ -28,7 +31,7 @@ let User = require('./../../models/User')
  *           items:
  *             $ref: '#/definitions/User'
  */
-router.get('/', (req, res) => {
+router.get('/', VerifyToken,  (req, res) => {
   User.find({}, (err, users) => {
     if (err) return res.status(400).send('There was a problem finding the users.')
     res.status(200).send(users)
@@ -42,6 +45,7 @@ router.get('/', (req, res) => {
  *     tags:
  *       - Users
  *     description: Create user
+ *     summary: Create user
  *     parameters:
  *       - name: user
  *         description: JSON with user data
@@ -75,6 +79,7 @@ router.post('/', (req, res) => {
  *     tags:
  *       - Users
  *     description: Get user by id
+ *     summary: Get user by id
  *     parameters:
  *       - name: id
  *         in: path
@@ -89,7 +94,7 @@ router.post('/', (req, res) => {
  *         schema:
  *           $ref: '#/definitions/User'
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', VerifyToken, (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) return res.status(500).send('There was a problem finding the user.')
     if (!user) return res.status(404).send('No user found.')
@@ -104,6 +109,7 @@ router.get('/:id', (req, res) => {
  *     tags:
  *       - Users
  *     description: Create user
+ *     summary: Create user
  *     parameters:
  *       - name: id
  *         in: path
@@ -124,7 +130,7 @@ router.get('/:id', (req, res) => {
  *         schema:
  *           $ref: '#/definitions/User'
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', VerifyToken, (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
     if (err) return res.status(500).send('There was a problem updating the user.')
     res.status(200).send(user)
@@ -138,6 +144,7 @@ router.put('/:id', (req, res) => {
  *     tags:
  *       - Users
  *     description: Delete user
+ *     summary: Delete user
  *     parameters:
  *       - name: id
  *         in: path
@@ -151,7 +158,7 @@ router.put('/:id', (req, res) => {
  *         description: Message
  *         type: string
  */
-router.delete('/:id', function (req, res) {
+router.delete('/:id', VerifyToken, function (req, res) {
   User.findByIdAndRemove(req.params.id, (err, user) => {
     if (err) return res.status(500).send('There was a problem deleting the user.')
     res.status(200).send('User ' + user.name + ' was deleted.')

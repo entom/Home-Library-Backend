@@ -2,6 +2,7 @@ let express = require('express')
 let router = express.Router()
 let bodyParser = require('body-parser')
 let apiHelper = require('./../../helpers/ApiHelper')
+let VerifyToken = require('./../../helpers/VerifyToken')
 
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json())
@@ -19,6 +20,7 @@ let Book = require('./../../models/Book')
  *     tags:
  *       - Books
  *     description: Get list of books
+ *     summary: List of books
  *     produces:
  *       - application/json
  *     responses:
@@ -29,7 +31,7 @@ let Book = require('./../../models/Book')
  *           items:
  *             $ref: '#/definitions/Book'
  */
-router.get('/', (req, res) => {
+router.get('/', VerifyToken, (req, res) => {
   Book.find({}, (err, books) => {
     if (err) return res.status(400).send('There was a problem finding the books.')
     res.status(200).send(books)
@@ -42,7 +44,8 @@ router.get('/', (req, res) => {
  *   post:
  *     tags:
  *       - Books
- *     description: Create book
+ *     description: Create a book
+ *     summary: Create a book
  *     parameters:
  *       - name: user
  *         description: JSON with book data
@@ -62,7 +65,7 @@ router.get('/', (req, res) => {
  *         schema:
  *           $ref: '#/definitions/ApiValidation'
  */
-router.post('/', (req, res) => {
+router.post('/', VerifyToken, (req, res) => {
   Book.create(req.body, (err, book) => {
     if (err) return res.status(400).send({message: 'There was a problem adding the book to the database.', errors: apiHelper.validationErrors(err)})
     res.status(200).send(book)
@@ -76,6 +79,7 @@ router.post('/', (req, res) => {
  *     tags:
  *       - Books
  *     description: Get book by id
+ *     summary: Get book by id
  *     parameters:
  *       - name: id
  *         in: path
@@ -90,7 +94,7 @@ router.post('/', (req, res) => {
  *         schema:
  *           $ref: '#/definitions/Book'
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', VerifyToken, (req, res) => {
   Book.findById(req.params.id, (err, book) => {
     if (err) return res.status(500).send('There was a problem finding the book.')
     if (!book) return res.status(404).send('No book found.')
@@ -104,7 +108,8 @@ router.get('/:id', (req, res) => {
  *   put:
  *     tags:
  *       - Books
- *     description: Create book
+ *     description: Update a book
+ *     summary: Update a book
  *     parameters:
  *       - name: id
  *         in: path
@@ -125,7 +130,7 @@ router.get('/:id', (req, res) => {
  *         schema:
  *           $ref: '#/definitions/Book'
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', VerifyToken, (req, res) => {
   Book.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, book) => {
     if (err) return res.status(500).send('There was a problem updating the book.')
     res.status(200).send(book)
@@ -138,7 +143,8 @@ router.put('/:id', (req, res) => {
  *   delete:
  *     tags:
  *       - Books
- *     description: Delete book
+ *     description: Delete a book
+ *     summary: Delete a book
  *     parameters:
  *       - name: id
  *         in: path
@@ -152,7 +158,7 @@ router.put('/:id', (req, res) => {
  *         description: Message
  *         type: string
  */
-router.delete('/:id', function (req, res) {
+router.delete('/:id', VerifyToken, function (req, res) {
   Book.findByIdAndRemove(req.params.id, (err, book) => {
     if (err) return res.status(500).send('There was a problem deleting the book.')
     res.status(200).send('Book ' + book.title + ' was deleted.')
