@@ -8,6 +8,39 @@ router.use(bodyParser.json())
 
 let User = require('./../../models/User')
 
+/**
+ * @swagger
+ * /api/authenticate/:
+ *   post:
+ *     tags:
+ *       - Authenticate
+ *     description: Login user with credentials
+ *     summary: Login user
+ *     parameters:
+ *       - name: user
+ *         desciption: User login and password
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *             password:
+ *               type: string
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Object with status and token
+ *         schema:
+ *           type: object
+ *           properties:
+ *             status:
+ *               type: string
+ *             token:
+ *               type: string
+ */
 router.post('/', (req, res) => {
   User.findOne({email: req.body.email}, (err, user) => {
     if (err) throw err
