@@ -32,7 +32,6 @@ let Book = require('./../../models/Book')
  *             $ref: '#/definitions/Book'
  */
 router.get('/', VerifyToken, (req, res) => {
-  console.log(req.decoded)
   Book.find({}, (err, books) => {
     if (err) return res.status(400).send('There was a problem finding the books.')
     res.status(200).send(books)
