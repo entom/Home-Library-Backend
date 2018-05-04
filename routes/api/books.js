@@ -30,9 +30,9 @@ let Book = require('./../../models/Book')
  *             $ref: '#/definitions/Book'
  */
 router.get('/', (req, res) => {
-  Book.find({}, (err, users) => {
+  Book.find({}, (err, books) => {
     if (err) return res.status(400).send('There was a problem finding the books.')
-    res.status(200).send(users)
+    res.status(200).send(books)
   })
 })
 
@@ -63,9 +63,9 @@ router.get('/', (req, res) => {
  *           $ref: '#/definitions/ApiValidation'
  */
 router.post('/', (req, res) => {
-  Book.create(req.body, (err, user) => {
+  Book.create(req.body, (err, book) => {
     if (err) return res.status(400).send({message: 'There was a problem adding the book to the database.', errors: apiHelper.validationErrors(err)})
-    res.status(200).send(user)
+    res.status(200).send(book)
   })
 })
 
