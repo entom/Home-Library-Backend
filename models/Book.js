@@ -17,6 +17,18 @@ let mongose = require('mongoose')
  *         type: boolean
  *       public:
  *         type: boolean
+ *       images:
+ *         type: object
+ *         properties:
+ *           coverFront:
+ *             type: string
+ *             description: Base64 file content
+ *           coverBack:
+ *             type: string
+ *             description: Base64 file content
+ *           other:
+ *             type: string
+ *             description: Base64 file content
  *
  * @type {module:mongoose.Schema}
  */
@@ -32,7 +44,12 @@ let BookSchema = new mongose.Schema({
     type: Boolean,
     required: 'Please select if book is ebook'
   },
-  public: Boolean
+  public: Boolean,
+  images: {
+    coverFront: String,
+    coverBack: String,
+    other: String
+  }
 })
 mongose.model('Book', BookSchema)
 

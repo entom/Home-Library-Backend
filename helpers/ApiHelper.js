@@ -6,6 +6,11 @@ let ApiHelper = {
     }
 
     return errors
+  },
+  uploadFile: (fileName, folderName, fileContent) => {
+    require('fs').writeFile('uploads/' + folderName + '/' + fileName, fileContent, 'base64', (err) => {
+      console.log(err)
+    })
   }
 }
 
