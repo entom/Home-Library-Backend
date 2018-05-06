@@ -8,8 +8,15 @@ let ApiHelper = {
     return errors
   },
   uploadFile: (fileName, folderName, fileContent) => {
-    require('fs').writeFile('uploader/' + folderName + '/' + fileName, fileContent, 'base64', (err) => {
+    let path = 'uploader/' + folderName + '/'
+    let fs = require('fs')
+    let makeDir = require('mkdirp')
+
+    makeDir(path, (err) => {
       console.log(err)
+      fs.writeFile(path + fileName, fileContent, 'base64', (err) => {
+        console.log(err)
+      })
     })
   }
 }
