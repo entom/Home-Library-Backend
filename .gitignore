@@ -1,7 +1,9 @@
 .idea/
 .vscode/
 node_modules/
-uploads/
-!uploads/.gitkeep
-!uploads/books/.gitkeep
-!uploads/books/coverFront/.gitkeep
+uploader/*
+!uploader/.gitkeep
+!uploader/books/.gitkeep
+!uploaer/books/coverFront/.gitkeep
+!uploaer/books/coverBack/.gitkeep
+!uploaer/books/other/.gitkeep
