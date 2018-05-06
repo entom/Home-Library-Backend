@@ -66,8 +66,31 @@ router.get('/', VerifyToken, (req, res) => {
  *           $ref: '#/definitions/ApiValidation'
  */
 router.post('/', VerifyToken, (req, res) => {
+  if (req.body.images !== undefined && req.body.images.coverFront !== undefined && req.body.images.coverFront.length > 0) {
+    let filename = req.decoded.id + '-' + (new Date()).getTime()
+    req.body.images.coverFront = filename
+    apiHelper.uploadFile(filename, 'books/coverFront', req.body.images.coverFront)
+  }
+
+  if (req.body.images !== undefined && req.body.images.coverBack !== undefined && req.body.images.coverBack.length > 0) {
+    let filename = req.decoded.id + '-' + (new Date()).getTime()
+    req.body.images.coverBack = filename
+    apiHelper.uploadFile(filename, 'books/coverBack', req.body.images.coverBack)
+  }
+
+  if (req.body.images !== undefined && req.body.images.other !== undefined && req.body.images.other.length > 0) {
+    let filename = req.decoded.id + '-' + (new Date()).getTime()
+    req.body.images.other = filename
+    apiHelper.uploadFile(filename, 'books/other', req.body.images.other)
+  }
+
   Book.create(req.body, (err, book) => {
-    if (err) return res.status(400).send({message: 'There was a problem adding the book to the database.', errors: apiHelper.validationErrors(err)})
+    if (err) {
+      return res.status(400).send({
+        message: 'There was a problem adding the book to the database.',
+        errors: apiHelper.validationErrors(err)
+      })
+    }
     res.status(200).send(book)
   })
 })
