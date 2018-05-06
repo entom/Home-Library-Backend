@@ -3,7 +3,3 @@
 node_modules/
 uploader/*
 !uploader/.gitkeep
-!uploader/books/.gitkeep
-!uploaer/books/coverFront/.gitkeep
-!uploaer/books/coverBack/.gitkeep
-!uploaer/books/other/.gitkeep
