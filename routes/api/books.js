@@ -68,23 +68,20 @@ router.get('/', VerifyToken, (req, res) => {
 router.post('/', VerifyToken, (req, res) => {
   if (req.body.images !== undefined && req.body.images.coverFront !== undefined && req.body.images.coverFront.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    let base64Data = req.body.images.coverFront.replace(/^data:image\/(.*);base64,/, '')
     req.body.images.coverFront = filename
-    apiHelper.uploadFile(filename, 'books/coverFront', base64Data)
+    apiHelper.uploadFile(filename, 'books/coverFront', req.body.images.coverFront)
   }
 
   if (req.body.images !== undefined && req.body.images.coverBack !== undefined && req.body.images.coverBack.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    let base64Data = req.body.images.coverBack.replace(/^data:image\/(.*);base64,/, '')
     req.body.images.coverBack = filename
-    apiHelper.uploadFile(filename, 'books/coverBack', base64Data)
+    apiHelper.uploadFile(filename, 'books/coverBack', req.body.images.coverBack)
   }
 
   if (req.body.images !== undefined && req.body.images.other !== undefined && req.body.images.other.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    let base64Data = req.body.images.other.replace(/^data:image\/(.*);base64,/, '')
     req.body.images.other = filename
-    apiHelper.uploadFile(filename, 'books/other', base64Data)
+    apiHelper.uploadFile(filename, 'books/other', req.body.images.other)
   }
 
   Book.create(req.body, (err, book) => {

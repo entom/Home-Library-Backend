@@ -8,6 +8,7 @@ let ApiHelper = {
     return errors
   },
   uploadFile: (fileName, folderName, fileContent) => {
+    fileContent = fileContent.replace(/^data:image\/(.*);base64,/, '')
     let path = 'uploader/' + folderName + '/'
     let fs = require('fs')
     let makeDir = require('mkdirp')
