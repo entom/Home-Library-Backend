@@ -68,20 +68,20 @@ router.get('/', VerifyToken, (req, res) => {
 router.post('/', VerifyToken, (req, res) => {
   if (req.body.images !== undefined && req.body.images.coverFront !== undefined && req.body.images.coverFront.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    req.body.images.coverFront = filename
     apiHelper.uploadFile(filename, 'books/coverFront', req.body.images.coverFront)
+    req.body.images.coverFront = filename
   }
 
   if (req.body.images !== undefined && req.body.images.coverBack !== undefined && req.body.images.coverBack.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    req.body.images.coverBack = filename
     apiHelper.uploadFile(filename, 'books/coverBack', req.body.images.coverBack)
+    req.body.images.coverBack = filename
   }
 
   if (req.body.images !== undefined && req.body.images.other !== undefined && req.body.images.other.length > 0) {
     let filename = req.decoded.id + '-' + (new Date()).getTime()
-    req.body.images.other = filename
     apiHelper.uploadFile(filename, 'books/other', req.body.images.other)
+    req.body.images.other = filename
   }
 
   Book.create(req.body, (err, book) => {
