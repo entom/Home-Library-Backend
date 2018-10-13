@@ -13,6 +13,8 @@ let apiUsersRouter = require('./routes/api/users')
 let apiBooksRouter = require('./routes/api/books')
 let apiAuthenticateRouter = require('./routes/api/authenticate')
 
+let panelIndex = require('./routes/panel/index')
+
 let db = require('./db')
 
 // API documentation
@@ -58,6 +60,7 @@ app.use('/api/status', apiStatusRouter)
 app.use('/api/authenticate', apiAuthenticateRouter)
 app.use('/api/users', apiUsersRouter)
 app.use('/api/books', apiBooksRouter)
+app.use('/panel', panelIndex)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
