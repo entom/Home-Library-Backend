@@ -1,7 +1,8 @@
 let express = require('express')
 let router = express.Router()
+let panelSessionChecker = require('../../helpers/panelSessionChecker')
 
-router.get('/', (req, res) => {
+router.get('/', panelSessionChecker, (req, res) => {
   res.render('panel/index/index')
 })
 

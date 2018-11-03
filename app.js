@@ -3,6 +3,7 @@ let express = require('express')
 let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
+let session = require('express-session')
 
 let app = express()
 
@@ -14,6 +15,7 @@ let apiBooksRouter = require('./routes/api/books')
 let apiAuthenticateRouter = require('./routes/api/authenticate')
 
 let panelIndex = require('./routes/panel/index')
+let panelLogin = require('./routes/panel/login')
 
 let db = require('./db')
 
@@ -52,6 +54,15 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session({
+  key: 'user_sid',
+  secret: 'thisIsMyVeryCustomSecretValue',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000
+  }
+}))
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
@@ -61,6 +72,7 @@ app.use('/api/authenticate', apiAuthenticateRouter)
 app.use('/api/users', apiUsersRouter)
 app.use('/api/books', apiBooksRouter)
 app.use('/panel', panelIndex)
+app.use('/panel/login', panelLogin)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
