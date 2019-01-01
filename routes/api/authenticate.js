@@ -47,7 +47,8 @@ router.post('/', (req, res) => {
     if (!user) {
       res.status(400).send('Wrong user login')
     } else if (user) {
-      if (user.password !== req.body.password) {
+      const bCrypt = require('bcrypt')
+      if (!bCrypt.compareSync(req.body.password, user.password)) {
         res.status(400).send('Wrong user password')
       } else {
         const payload = {
