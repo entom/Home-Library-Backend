@@ -17,9 +17,18 @@ let mongose = require('mongoose')
  * @type {module:mongoose.Schema}
  */
 let UserSchema = new mongose.Schema({
-  name: String,
-  email: String,
-  password: String,
+  name: {
+    type: String,
+    required: 'Please provide name'
+  },
+  email: {
+    type: String,
+    required: 'Please provide email'
+  },
+  password: {
+    type: String,
+    required: 'Please provide password'
+  },
   role: String
 })
 mongose.model('User', UserSchema)
