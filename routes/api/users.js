@@ -1,6 +1,7 @@
 let express = require('express')
 let router = express.Router()
 let bodyParser = require('body-parser')
+let apiHelper = require('./../../helpers/ApiHelper')
 
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json())
@@ -31,7 +32,7 @@ let User = require('./../../models/User')
  *           items:
  *             $ref: '#/definitions/User'
  */
-router.get('/', VerifyToken,  (req, res) => {
+router.get('/', VerifyToken, (req, res) => {
   User.find({}, (err, users) => {
     if (err) return res.status(400).send('There was a problem finding the users.')
     res.status(200).send(users)
@@ -60,15 +61,30 @@ router.get('/', VerifyToken,  (req, res) => {
  *         description: User which was created
  *         schema:
  *           $ref: '#/definitions/User'
+ *       400:
+ *         description: Book validation errors
+ *         schema:
+ *           $ref: '#/definitions/ApiValidation'
  */
 router.post('/', (req, res) => {
+  const bCrypt = require('bcrypt')
   User.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password
   }, (err, user) => {
-    if (err) return res.status(400).send('There was a problem adding the information to the database.')
-    res.status(200).send(user)
+    if (err) {
+      return res.status(400).send({
+        message: 'There was a problem adding the information to the database.',
+        errors: apiHelper.validationErrors(err)
+      })
+    }
+
+    user.password = bCrypt.hashSync(req.body.password, 10)
+    User.findByIdAndUpdate(user.id, user, {}, (err, user) => {
+      if (err) return res.status(500).send('There was a problem updating the user.')
+      res.status(200).send(user)
+    })
   })
 })
 
