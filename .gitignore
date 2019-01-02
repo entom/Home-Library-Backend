@@ -4,3 +4,5 @@ node_modules/
 uploader/*
 !uploader/.gitkeep
 package-lock.json
+sessions/*
+!sessions/.gitkeep
