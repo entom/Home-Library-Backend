@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
       const bCrypt = require('bcrypt')
       if (bCrypt.compareSync(req.body.password, user.password)) {
         req.session.user = user
+        req.cookies.user = user
         console.log(user)
         res.redirect('/panel')
       } else {
