@@ -4,6 +4,7 @@ let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
 let session = require('express-session')
+let FileStore = require('session-file-store')(session)
 
 let app = express()
 
@@ -57,11 +58,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
   key: 'user_sid',
   secret: 'thisIsMyVeryCustomSecretValue',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: {
     expires: 600000
-  }
+  },
+  store: new FileStore()
 }))
 
 app.use('/', indexRouter)
