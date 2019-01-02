@@ -9,10 +9,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   Admin.findOne({email: req.body.email}, (err, user) => {
     if (err) {
-      console.log(1)
       res.redirect('/panel/login')
     } else if (!user) {
-      console.log(2)
       res.redirect('/panel/login')
     } else {
       const bCrypt = require('bcrypt')
@@ -21,7 +19,6 @@ router.post('/', (req, res) => {
         console.log(user)
         res.redirect('/panel')
       } else {
-        console.log(3)
         res.redirect('/panel/login')
       }
     }
