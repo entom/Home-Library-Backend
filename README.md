@@ -11,6 +11,11 @@ npm install
 npm start
 ```
 
+## Run project with watching files changes
+```
+npm run watch
+```
+
 ## API Information
 API is available with prefix /api   
 You can check /swagger.json for api documentation.  
