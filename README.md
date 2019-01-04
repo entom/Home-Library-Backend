@@ -4,6 +4,8 @@ Backend for Home Library Project
 ## Install packages & make some configuration
 ```
 npm install
+cd public/
+npm install
 ```
 
 ## Run project for development

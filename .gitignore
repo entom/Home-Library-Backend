@@ -6,3 +6,5 @@ uploader/*
 package-lock.json
 sessions/*
 !sessions/.gitkeep
+public/node_modules/
+public/package-lock.json
